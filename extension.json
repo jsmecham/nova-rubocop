@@ -1,0 +1,13 @@
+{
+    "identifier": "Mecham.RuboCop",
+    "name": "RuboCop",
+    "author": "Justin Mecham",
+    "description": "Integrates with RuboCop to provide contextual issues in Nova.",
+    "version": "1.0",
+    
+    "main": "main.js",
+    
+    "entitlements": {
+        "files": "readwrite", "process": true
+    }
+}
