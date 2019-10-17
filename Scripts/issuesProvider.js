@@ -27,7 +27,9 @@ class RuboCopIssuesProvider {
         const relativePath = nova.workspace.relativizePath(document.path);
         this.processFile(relativePath);
 
+        editor.onDidStopChanging(this.updateFile.bind(this));
         editor.onDidDestroy(this.removeTextEditor.bind(this));
+
         this.editors.push(editor);
     }
     
@@ -50,6 +52,11 @@ class RuboCopIssuesProvider {
         return this.offenses[relativePath].map(offense => offense.issue);
     }
 
+    updateFile(editor) {
+      const relativePath =  nova.workspace.relativizePath(editor.document.path);
+      this.processFile(relativePath);
+    }
+    
     processFile(path) {
         const options = {
             args: ["rubocop", "-fj", path],
