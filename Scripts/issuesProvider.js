@@ -25,8 +25,9 @@ class RuboCopIssuesProvider {
         console.log(`[addTextEditor] Adding ${document.path} (Syntax: ${document.syntax})`);
 
         const relativePath = nova.workspace.relativizePath(document.path);
-        this.processFile(relativePath);
+        this.processFile(relativePath, editor);
 
+        editor.onDidSave(this.updateFile.bind(this));
         editor.onDidStopChanging(this.updateFile.bind(this));
         editor.onDidDestroy(this.removeTextEditor.bind(this));
 
@@ -53,14 +54,16 @@ class RuboCopIssuesProvider {
     }
 
     updateFile(editor) {
-      const relativePath =  nova.workspace.relativizePath(editor.document.path);
-      this.processFile(relativePath);
+      const relativePath = nova.workspace.relativizePath(editor.document.path);
+      this.processFile(relativePath, editor);
     }
-    
-    processFile(path) {
+
+    // TODO: Extract this into its own class
+    processFile(path, editor) {
         const options = {
-            args: ["rubocop", "-fj", path],
-            cwd: nova.workspace.path
+            args: ["rubocop", "-o /tmp/foo", "--format=json", "--stdin", path],
+            cwd: nova.workspace.path,
+            stdio: "pipe",
         };
 
         const process = new Process("/usr/bin/env", options);
@@ -72,6 +75,14 @@ class RuboCopIssuesProvider {
         });
 
         process.start();
+        
+        const writableStream = process.stdio[0];
+        const defaultWriter = writableStream.getWriter();
+
+        defaultWriter.ready.then(() => {
+            defaultWriter.write(editor.document.getTextInRange(new Range(0, editor.document.length)));
+            defaultWriter.close();
+        });
     }
     
     processResult(result) {
