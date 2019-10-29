@@ -1,5 +1,5 @@
 // 
-// RuboCop for Nova
+// RuboCop Extension for Nova
 // rubocop.js
 //
 // Copyright © 2019 Justin Mecham. All rights reserved.
@@ -16,10 +16,10 @@ class RuboCopProcess {
 
     execute() {
         this.process.start();
-        
+
         const channel = this.process.stdin;
         const writer = channel.getWriter();
-        
+
         writer.ready.then(() => {
             writer.write(this.content);
             writer.close();

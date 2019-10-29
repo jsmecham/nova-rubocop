@@ -1,5 +1,5 @@
 // 
-// RuboCop for Nova
+// RuboCop Extension for Nova
 // issuesProvider.js
 //
 // Copyright © 2019 Justin Mecham. All rights reserved.

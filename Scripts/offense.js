@@ -1,5 +1,5 @@
 // 
-// RuboCop for Nova
+// RuboCop Extension for Nova
 // offense.js
 //
 // Copyright © 2019 Justin Mecham. All rights reserved.
@@ -35,7 +35,7 @@ class RuboCopOffense {
         }
 
         issue.line = this.startLine;
-        issue.endLine =  this.stopLine;
+        issue.endLine = this.stopLine;
         issue.column = this.startColumn;
         issue.endColumn = this.stopColumn;
 
