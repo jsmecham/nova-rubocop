@@ -27,6 +27,8 @@ class RuboCopProcess {
     }
     
     get process() {
+        if (this._process) { return this._process }
+
         const process = new Process("/usr/bin/env", {
             args: ["rubocop", "--format=json", "--stdin", this.path],
             cwd: nova.workspace.path,
@@ -36,7 +38,7 @@ class RuboCopProcess {
         process.onStdout(this.handleOutput.bind(this));
         process.onStderr(this.handleError.bind(this));
 
-        return process;
+        return (this._process = process);
     }
 
     handleError(error) {
