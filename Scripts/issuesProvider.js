@@ -58,7 +58,7 @@ class RuboCopIssuesProvider {
         const content = editor.document.getTextInRange(contentRange);
         const rubocop = new RuboCopProcess(relativePath, content);
         
-        rubocop.onComplete =((offenses) => {
+        rubocop.onComplete((offenses) => {
             this.offenses[relativePath] = rubocop.offenses;
         });
 

@@ -52,6 +52,14 @@ class RuboCopProcess {
         console.info(JSON.stringify(offenses, null, "  "));
 
         this.offenses = offenses.map(offense => new RuboCopOffense(offense))
+
+        if (this._onCompleteCallback) {
+            this._onCompleteCallback(this.offenses);
+        } 
+    }
+
+    onComplete(callback) {
+        this._onCompleteCallback = callback;
     }
 
 }
