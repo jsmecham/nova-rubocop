@@ -46,7 +46,7 @@ class RuboCopProcess {
     }
   
     handleOutput(output) {
-        const parsedOutput = JSON.parse(result);
+        const parsedOutput = JSON.parse(output);
         const offenses = parsedOutput["files"][0]["offenses"];
 
         console.info(JSON.stringify(offenses, null, "  "));
