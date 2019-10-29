@@ -1,11 +1,11 @@
 // 
 // RuboCop Extension for Nova
-// rubocop.js
+// RuboCopProcess.js
 //
 // Copyright © 2019 Justin Mecham. All rights reserved.
 // 
 
-const RuboCopOffense = require("offense");
+const Offense = require("RuboCopOffense");
 
 class RuboCopProcess {
 
@@ -14,18 +14,6 @@ class RuboCopProcess {
         this.content = content;
     }
 
-    execute() {
-        this.process.start();
-
-        const channel = this.process.stdin;
-        const writer = channel.getWriter();
-
-        writer.ready.then(() => {
-            writer.write(this.content);
-            writer.close();
-        });
-    }
-    
     get process() {
         if (this._process) { return this._process }
 
@@ -41,6 +29,18 @@ class RuboCopProcess {
         return (this._process = process);
     }
 
+    execute() {
+        this.process.start();
+
+        const channel = this.process.stdin;
+        const writer = channel.getWriter();
+
+        writer.ready.then(() => {
+            writer.write(this.content);
+            writer.close();
+        });
+    }
+
     handleError(error) {
         console.error(error);
     }
@@ -51,11 +51,11 @@ class RuboCopProcess {
 
         console.info(JSON.stringify(offenses, null, "  "));
 
-        this.offenses = offenses.map(offense => new RuboCopOffense(offense))
+        this.offenses = offenses.map(offense => new Offense(offense));
 
         if (this._onCompleteCallback) {
             this._onCompleteCallback(this.offenses);
-        } 
+        }
     }
 
     onComplete(callback) {

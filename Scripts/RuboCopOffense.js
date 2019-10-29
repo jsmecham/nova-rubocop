@@ -1,6 +1,6 @@
 // 
 // RuboCop Extension for Nova
-// offense.js
+// RuboCopOffense.js
 //
 // Copyright © 2019 Justin Mecham. All rights reserved.
 // 

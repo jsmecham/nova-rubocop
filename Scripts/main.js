@@ -5,19 +5,14 @@
 // Copyright © 2019 Justin Mecham. All rights reserved.
 // 
 
-const RuboCopIssuesProvider = require("issuesProvider");
-let disposables = new CompositeDisposable();
+const disposables = new CompositeDisposable();
+const RuboCop = require("RuboCop");
 
 exports.activate = function() {
-    console.log("Activating");
-    
-    const issuesProvider = new RuboCopIssuesProvider();
-    nova.workspace.onDidAddTextEditor(issuesProvider.addTextEditor.bind(issuesProvider));
-    disposables.add(nova.assistants.registerIssueAssistant("ruby", issuesProvider));
+    const ruboCopInstance = new RuboCop();
+    disposables.add(ruboCopInstance);
 }
 
 exports.deactivate = function() {
-    console.log("Deactivating");
-    
     disposables.dispose();
 }
