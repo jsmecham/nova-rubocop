@@ -37,7 +37,7 @@ class RuboCopOffense {
         issue.line = this.startLine;
         issue.endLine = this.stopLine;
         issue.column = this.startColumn;
-        issue.endColumn = this.stopColumn;
+        issue.endColumn = this.stopColumn + 1;
 
         return issue;
     }
