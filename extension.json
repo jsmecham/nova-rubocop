@@ -5,6 +5,9 @@
     "description": "Integrates with RuboCop to provide contextual issues in Nova.",
     "version": "1.0",
     "main": "main.js",
+    "activationEvents": [
+        "onLanguage:ruby"
+    ],
     "entitlements": {
         "process": true
     }
