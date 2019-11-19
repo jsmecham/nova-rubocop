@@ -5,14 +5,9 @@
 // Copyright © 2019 Justin Mecham. All rights reserved.
 // 
 
-const disposables = new CompositeDisposable();
-const RuboCop = require("RuboCop");
+const Linter = require("Linter");
 
 exports.activate = function() {
-    const ruboCopInstance = new RuboCop();
-    disposables.add(ruboCopInstance);
-}
-
-exports.deactivate = function() {
-    disposables.dispose();
-}
+  const linterInstance = new Linter();
+  nova.subscriptions.add(linterInstance);
+};
