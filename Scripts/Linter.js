@@ -40,26 +40,26 @@ class Linter {
 
   stopWatchingTextEditor(editor) {
     const index = this.editors.indexOf(editor);
+    
     if (index) {
-      const uri = `file://${editor.document.path}`;
-      const document = editor.document;
-      console.info(`[stopWatchingTextEditor] Removing editor for ${document.path}`);
+      const path = editor.document.path;
+      console.info(`[stopWatchingTextEditor] Removing editor for ${path}`);
       this.editors.splice(this.editors.index, 1);
-      this.issues.remove(uri);
+      this.issues.remove(path);
     } else {
       console.warn("[stopWatchingTextEditor] Attempted to remove an unknown text editor...");
     }
   }
 
   processDocument(editor) {
-    const relativePath = nova.workspace.relativizePath(editor.document.path);
-    const uri = `file://${editor.document.path}`;
+    const path = editor.document.path;
+    const relativePath = nova.workspace.relativizePath(path);
     const contentRange = new Range(0, editor.document.length);
     const content = editor.document.getTextInRange(contentRange);
     const process = new LinterProcess(relativePath, content);
 
     process.onComplete((offenses) => {
-      this.issues.set(uri, offenses.map(offense => offense.issue));
+      this.issues.set(path, offenses.map(offense => offense.issue));
     });
 
     process.execute();
