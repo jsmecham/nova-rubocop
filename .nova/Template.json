@@ -1,0 +1,19 @@
+{
+  "author" : "Justin Mecham",
+  "description" : "",
+  "includedConfigs" : {
+    "build" : false,
+    "publish" : false,
+    "run" : false
+  },
+  "includedFiles" : {
+    "hidden" : false,
+    "ignored" : false
+  },
+  "name" : "RuboCop.novaextension",
+  "rank" : 0,
+  "variablePrefix" : "nova",
+  "variables" : [
+
+  ]
+}
