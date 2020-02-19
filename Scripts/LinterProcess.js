@@ -16,9 +16,16 @@ class LinterProcess {
 
   get process() {
     if (this._process) return this._process;
+    
+    let args = ""
+    if(nova.config.get('Mecham.Rubocop.UseBundler')) {
+      args = ["bundle", "exec", "rubocop", "--format=json", "--stdin", this.path]
+    } else {
+      args = ["rubocop", "--format=json", "--stdin", this.path]
+    }
 
     const process = new Process("/usr/bin/env", {
-      args: ["rubocop", "--format=json", "--stdin", this.path],
+      args: args,
       cwd: nova.workspace.path,
       stdio: "pipe",
     });
