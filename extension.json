@@ -11,5 +11,15 @@
     ],
     "entitlements": {
         "process": true
-    }
+    },
+    "config": [
+        {
+            "key": "Mecham.Rubocop.UseBundler",
+            "title": "Use bundler?",
+            "description": "Whether bundler should be used to run Rubocop.",
+            "type": "boolean",
+            "link": "https://bundler.io/man/bundle-exec.1.html",
+            "default": false
+        }
+    ]
 }
