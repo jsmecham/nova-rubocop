@@ -8,7 +8,7 @@
     "repository": "https://github.com/jsmecham/nova-rubocop",
     "bugs": "https://github.com/jsmecham/nova-rubocop/issues",
     "license": "MIT",
-    "main": "main.js",
+    "main": "main.dist.js",
     "activationEvents": [
         "onLanguage:ruby"
     ],

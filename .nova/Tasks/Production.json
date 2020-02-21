@@ -1,0 +1,9 @@
+{
+  "script" : "if [ $NOVA_TASK_NAME == \"build\" ]; then\n\tnpm run build:dist\nfi",
+  "runsCreateIndividualLogs" : true,
+  "actions" : [
+    "build"
+  ],
+  "identifier" : "372709E6-3E6C-4A10-888F-0B69C2D8F1EE",
+  "openLogOnRun" : "fail"
+}

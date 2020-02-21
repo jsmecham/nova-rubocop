@@ -1,13 +1,13 @@
-// 
+//
 // RuboCop Extension for Nova
 // main.js
 //
 // Copyright © 2019-2020 Justin Mecham. All rights reserved.
-// 
+//
 
-const Linter = require("Linter");
+const Linter = require("./Linter");
 
 exports.activate = function() {
-  const linterInstance = new Linter();
-  nova.subscriptions.add(linterInstance);
+    const linterInstance = new Linter();
+    nova.subscriptions.add(linterInstance);
 };

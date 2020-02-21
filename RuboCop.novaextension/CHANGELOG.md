@@ -2,6 +2,7 @@
 
 ## UNRELEASED
 
+- Restructured the project to allow for npm dependencies to be consumed.
 - Added a new icon for the extension.
 - Added documentation to the README.
 - Simplified the formatting of the CHANGELOG.
