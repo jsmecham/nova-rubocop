@@ -1,5 +1,7 @@
 ## UNRELEASED
 
+- Updated error notification to direct users to the extension preferences when
+  RuboCop could not be found.
 - Configured RuboCop to omit cop names from returned messages (the names were
   previously being stripped manually during parsing).
 

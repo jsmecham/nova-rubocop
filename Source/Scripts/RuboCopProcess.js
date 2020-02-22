@@ -79,12 +79,12 @@ class RuboCopProcess {
         const request = new NotificationRequest("rubocop-not-found");
         request.title = nova.localize("RuboCop Not Found");
         request.body = nova.localize("The \"rubocop\" command could not be found in your environment.");
-        request.actions = [nova.localize("OK"), nova.localize("More Information…")];
+        request.actions = [nova.localize("OK"), nova.localize("Help")];
 
         const notificationPromise = nova.notifications.add(request);
         notificationPromise.then((response) => {
-            if (response.actionIdx === 1) { // More Information…
-                nova.openURL("https://github.com/jsmecham/nova-rubocop/wiki/Environment");
+            if (response.actionIdx === 1) { // Help
+                nova.openConfig();
             }
         }).catch((error) => {
             console.error(error);
