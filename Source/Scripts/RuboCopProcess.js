@@ -28,7 +28,8 @@ class RuboCopProcess {
         process.onStdout(line => output += line);
         process.onStderr(line => output += line);
         process.onDidExit(status => {
-            status === 0 ? this.handleError(output) : this.handleOutput(output);
+            // See: https://github.com/rubocop-hq/rubocop/blob/master/manual/basic_usage.md#exit-codes
+            status >= 2 ? this.handleError(output) : this.handleOutput(output);
         });
 
         return (this._process = process);

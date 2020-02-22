@@ -2,6 +2,7 @@
 
 ## UNRELEASED
 
+- Fixed behavior based on the `rubocop` exit code.
 - Stopped outputting the raw RuboCop JSON result to the console.
 
 ## Version 0.2.0
