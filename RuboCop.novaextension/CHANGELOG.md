@@ -1,6 +1,6 @@
 # ChangeLog
 
-## UNRELEASED
+## Version 0.2.1
 
 - Fixed behavior based on the `rubocop` exit code.
 - Stopped outputting the raw RuboCop JSON result to the console.
