@@ -1,4 +1,4 @@
-## UNRELEASED
+## Version 0.3.0
 
 - Added documentation describing how we attempt to locate and run RuboCop in
   the current project environment.
