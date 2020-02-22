@@ -6,6 +6,7 @@
 //
 
 const Offense = require("./Offense");
+var isUserNotifiedOfMissingCommand;
 
 class RuboCopProcess {
 
@@ -46,7 +47,11 @@ class RuboCopProcess {
     }
 
     handleError(error) {
-        console.error(error);
+        if (error.match(/(no such file or directory|command not found)/i)) {
+            this.handleMissingCommand();
+        } else {
+            console.error(error);
+        }
     }
 
     handleOutput(output) {
@@ -60,6 +65,26 @@ class RuboCopProcess {
         if (this._onCompleteCallback) {
             this._onCompleteCallback(this.offenses);
         }
+    }
+
+    handleMissingCommand() {
+        if (isUserNotifiedOfMissingCommand) { return; }
+
+        const request = new NotificationRequest("rubocop-not-found");
+        request.title = nova.localize("RuboCop Not Found");
+        request.body = nova.localize("The \"rubocop\" command could not be found in your environment.");
+        request.actions = [nova.localize("OK"), nova.localize("More Information…")];
+
+        const notificationPromise = nova.notifications.add(request);
+        notificationPromise.then((response) => {
+            if (response.actionIdx === 1) { // More Information…
+                nova.openURL("https://github.com/jsmecham/nova-rubocop/wiki/Environment");
+            }
+        }).catch((error) => {
+            console.error(error);
+        }).finally(() => {
+            isUserNotifiedOfMissingCommand = true;
+        });
     }
 
     onComplete(callback) {
