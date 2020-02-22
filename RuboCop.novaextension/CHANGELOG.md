@@ -1,4 +1,7 @@
-# ChangeLog
+## UNRELEASED
+
+- Configured RuboCop to omit cop names from returned messages (the names were
+  previously being stripped manually during parsing).
 
 ## Version 0.2.1
 

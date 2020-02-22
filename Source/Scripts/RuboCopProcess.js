@@ -13,13 +13,17 @@ class RuboCopProcess {
     constructor(path, content) {
         this.path = path;
         this.content = content;
+        this.defaultArguments = [
+            "--format=json",
+            "--no-display-cop-names"
+        ];
     }
 
     get process() {
         if (this._process) return this._process;
 
         const process = new Process("/usr/bin/env", {
-            args: ["rubocop", "--format=json", "--stdin", this.path],
+            args: ["rubocop", this.defaultArguments, "--stdin", this.path].flat(),
             cwd: nova.workspace.path,
             stdio: "pipe"
         });
