@@ -1,5 +1,9 @@
 # ChangeLog
 
+## UNRELEASED
+
+- Stopped outputting the raw RuboCop JSON result to the console.
+
 ## Version 0.2.0
 
 - Added an informative notice to the user when RuboCop could not be found.

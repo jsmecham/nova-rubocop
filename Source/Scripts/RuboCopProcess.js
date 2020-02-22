@@ -58,7 +58,8 @@ class RuboCopProcess {
         const parsedOutput = JSON.parse(output);
         const offenses = parsedOutput["files"][0]["offenses"];
 
-        console.info(JSON.stringify(offenses, null, "  "));
+        // TODO: Enable a "Debug" Preference
+        // console.info(JSON.stringify(offenses, null, "  "));
 
         this.offenses = offenses.map(offense => new Offense(offense));
 
