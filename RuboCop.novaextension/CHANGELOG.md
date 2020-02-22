@@ -1,5 +1,7 @@
 ## UNRELEASED
 
+- Added documentation describing how we attempt to locate and run RuboCop in
+  the current project environment.
 - Added support for detecting and executing RuboCop with Bundler.
 
 ## Version 0.2.2
