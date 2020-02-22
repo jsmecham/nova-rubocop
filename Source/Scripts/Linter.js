@@ -11,6 +11,7 @@ class Linter {
 
     constructor() {
         this.issues = new IssueCollection();
+        this.process = new RuboCopProcess();
     }
 
     async lintDocument(document) {
@@ -23,12 +24,11 @@ class Linter {
     }
 
     async lintString(string, uri) {
-        const process = new RuboCopProcess(uri, string);
-        process.onComplete(offenses => {
+        this.process.onComplete(offenses => {
             this.issues.set(uri, offenses.map(offense => offense.issue));
         });
 
-        process.execute();
+        this.process.execute(string, uri);
     }
 
     removeIssues(uri) {

@@ -6,24 +6,22 @@
 //
 
 const Offense = require("./Offense");
-var isUserNotifiedOfMissingCommand = false;
 
 class RuboCopProcess {
 
-    constructor(path, content) {
-        this.path = path;
-        this.content = content;
-        this.defaultArguments = [
-            "rubocop",
-            "--format=json",
-            "--no-display-cop-names",
-            "--stdin",
-            this.path
-        ];
+    constructor() {
+        this.isNotified = false;
     }
 
     get isBundled() {
-        if (!nova.workspace.contains("Gemfile")) return Promise.resolve(false);
+        if (typeof this._isBundled !== "undefined") {
+            return Promise.resolve(this._isBundled);
+        }
+
+        if (!nova.workspace.contains("Gemfile")) {
+            this._sisBundled = false;
+            return Promise.resolve(false);
+        }
 
         return new Promise(resolve => {
             const process = new Process("/usr/bin/env", {
@@ -37,9 +35,9 @@ class RuboCopProcess {
             process.onDidExit(status => {
                 if (status === 0) {
                     console.log(`Found RuboCop ${output} (Bundled)`);
-                    resolve(true);
+                    resolve(this._isBundled = true);
                 } else {
-                    resolve(false);
+                    resolve(this._isBundled = false);
                 }
             });
 
@@ -48,6 +46,10 @@ class RuboCopProcess {
     }
 
     get isGlobal() {
+        if (typeof this._isGlobal !== "undefined") {
+            return Promise.resolve(this._isGlobal);
+        }
+
         return new Promise(resolve => {
             const process = new Process("/usr/bin/env", {
                 args: ["rubocop", "--version"],
@@ -60,9 +62,9 @@ class RuboCopProcess {
             process.onDidExit(status => {
                 if (status === 0) {
                     console.log(`Found RuboCop ${output} (Global)`);
-                    resolve(true);
+                    resolve(this._isGlobal = true);
                 } else {
-                    resolve(false);
+                    resolve(this._isGlobal = false);
                 }
             });
 
@@ -70,27 +72,33 @@ class RuboCopProcess {
         });
     }
 
-    async process() {
-        if (this._process) return this._process;
-
+    async process(commandArguments) {
         if (await this.isBundled) {
-            this.defaultArguments.unshift("bundle", "exec");
+            commandArguments.unshift("bundle", "exec");
         } else if (!(await this.isGlobal)) {
             this.notifyUserOfMissingCommand();
             return false;
         }
 
         const process = new Process("/usr/bin/env", {
-            args: this.defaultArguments,
+            args: commandArguments,
             cwd: nova.workspace.path,
             stdio: "pipe"
         });
 
-        return (this._process = process);
+        return process;
     }
 
-    async execute() {
-        const process = await this.process();
+    async execute(content, uri) {
+        const defaultArguments = [
+            "rubocop",
+            "--format=json",
+            "--no-display-cop-names",
+            "--stdin",
+            uri
+        ];
+
+        const process = await this.process(defaultArguments);
         if (!process) return;
 
         let output = "";
@@ -107,7 +115,7 @@ class RuboCopProcess {
         const writer = channel.getWriter();
 
         writer.ready.then(() => {
-            writer.write(this.content);
+            writer.write(content);
             writer.close();
         });
     }
@@ -131,7 +139,7 @@ class RuboCopProcess {
     }
 
     notifyUserOfMissingCommand() {
-        if (isUserNotifiedOfMissingCommand) { return; }
+        if (this.isNotified) return;
 
         const request = new NotificationRequest("rubocop-not-found");
         request.title = nova.localize("RuboCop Not Found");
@@ -146,7 +154,7 @@ class RuboCopProcess {
         }).catch((error) => {
             console.error(error);
         }).finally(() => {
-            isUserNotifiedOfMissingCommand = true;
+            this.isNotified = true;
         });
     }
 

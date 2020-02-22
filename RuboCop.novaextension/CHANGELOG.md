@@ -1,3 +1,8 @@
+## UNRELEASED
+
+- Improved the speed of executing RuboCop by caching the environment checks
+  that determine which RuboCop installation to use.
+
 ## Version 0.3.0
 
 - Added documentation describing how we attempt to locate and run RuboCop in
