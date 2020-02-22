@@ -6,7 +6,7 @@
 //
 
 const Offense = require("./Offense");
-var isUserNotifiedOfMissingCommand;
+var isUserNotifiedOfMissingCommand = false;
 
 class RuboCopProcess {
 
@@ -14,19 +14,84 @@ class RuboCopProcess {
         this.path = path;
         this.content = content;
         this.defaultArguments = [
+            "rubocop",
             "--format=json",
-            "--no-display-cop-names"
+            "--no-display-cop-names",
+            "--stdin",
+            this.path
         ];
     }
 
-    get process() {
+    get isBundled() {
+        if (!nova.workspace.contains("Gemfile")) return Promise.resolve(false);
+
+        return new Promise(resolve => {
+            const process = new Process("/usr/bin/env", {
+                args: ["bundle", "exec", "rubocop", "--version"],
+                cwd: nova.workspace.path,
+                shell: true
+            });
+
+            let output = "";
+            process.onStdout(line => output += line.trim());
+            process.onDidExit(status => {
+                if (status === 0) {
+                    console.log(`Found RuboCop ${output} (Bundled)`);
+                    resolve(true);
+                } else {
+                    resolve(false);
+                }
+            });
+
+            process.start();
+        });
+    }
+
+    get isGlobal() {
+        return new Promise(resolve => {
+            const process = new Process("/usr/bin/env", {
+                args: ["rubocop", "--version"],
+                cwd: nova.workspace.path,
+                shell: true
+            });
+
+            let output = "";
+            process.onStdout(line => output += line.trim());
+            process.onDidExit(status => {
+                if (status === 0) {
+                    console.log(`Found RuboCop ${output} (Global)`);
+                    resolve(true);
+                } else {
+                    resolve(false);
+                }
+            });
+
+            process.start();
+        });
+    }
+
+    async process() {
         if (this._process) return this._process;
 
+        if (await this.isBundled) {
+            this.defaultArguments.unshift("bundle", "exec");
+        } else if (!(await this.isGlobal)) {
+            this.notifyUserOfMissingCommand();
+            return false;
+        }
+
         const process = new Process("/usr/bin/env", {
-            args: ["rubocop", this.defaultArguments, "--stdin", this.path].flat(),
+            args: this.defaultArguments,
             cwd: nova.workspace.path,
             stdio: "pipe"
         });
+
+        return (this._process = process);
+    }
+
+    async execute() {
+        const process = await this.process();
+        if (!process) return;
 
         let output = "";
         process.onStdout(line => output += line);
@@ -36,13 +101,9 @@ class RuboCopProcess {
             status >= 2 ? this.handleError(output) : this.handleOutput(output);
         });
 
-        return (this._process = process);
-    }
+        process.start();
 
-    execute() {
-        this.process.start();
-
-        const channel = this.process.stdin;
+        const channel = process.stdin;
         const writer = channel.getWriter();
 
         writer.ready.then(() => {
@@ -52,11 +113,7 @@ class RuboCopProcess {
     }
 
     handleError(error) {
-        if (error.match(/(no such file or directory|command not found)/i)) {
-            this.handleMissingCommand();
-        } else {
-            console.error(error);
-        }
+        console.error(error);
     }
 
     handleOutput(output) {
@@ -73,7 +130,7 @@ class RuboCopProcess {
         }
     }
 
-    handleMissingCommand() {
+    notifyUserOfMissingCommand() {
         if (isUserNotifiedOfMissingCommand) { return; }
 
         const request = new NotificationRequest("rubocop-not-found");

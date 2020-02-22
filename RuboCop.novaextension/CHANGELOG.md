@@ -1,3 +1,7 @@
+## UNRELEASED
+
+- Added support for detecting and executing RuboCop with Bundler.
+
 ## Version 0.2.2
 
 - Updated error notification to direct users to the extension preferences when
