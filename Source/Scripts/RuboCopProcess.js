@@ -1,15 +1,15 @@
 //
 // RuboCop Extension for Nova
-// LinterProcess.js
+// RuboCopProcess.js
 //
 // Copyright © 2019-2020 Justin Mecham. All rights reserved.
 //
 
 const Offense = require("./Offense");
 
-class LinterProcess {
+class RuboCopProcess {
 
-    constructor(path, content = null) {
+    constructor(path, content) {
         this.path = path;
         this.content = content;
     }
@@ -23,8 +23,12 @@ class LinterProcess {
             stdio: "pipe"
         });
 
-        process.onStdout(this.handleOutput.bind(this));
-        process.onStderr(this.handleError.bind(this));
+        let output = "";
+        process.onStdout(line => output += line);
+        process.onStderr(line => output += line);
+        process.onDidExit(status => {
+            status === 0 ? this.handleError(output) : this.handleOutput(output);
+        });
 
         return (this._process = process);
     }
@@ -64,4 +68,4 @@ class LinterProcess {
 
 }
 
-module.exports = LinterProcess;
+module.exports = RuboCopProcess;

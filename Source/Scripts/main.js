@@ -8,6 +8,22 @@
 const Linter = require("./Linter");
 
 exports.activate = function() {
-    const linterInstance = new Linter();
-    nova.subscriptions.add(linterInstance);
+    const linter = new Linter();
+
+    nova.workspace.onDidAddTextEditor((editor) => {
+        linter.lintDocument(editor.document);
+
+        editor.onDidStopChanging(editor => linter.lintDocument(editor.document));
+        editor.document.onDidChangeSyntax(document => linter.lintDocument(document));
+
+        editor.onDidDestroy(destroyedEditor => {
+            let anotherEditor = nova.workspace.textEditors.find(editor => {
+                return editor.document.uri === destroyedEditor.document.uri;
+            });
+
+            if (!anotherEditor) {
+                linter.removeIssues(destroyedEditor.document.uri);
+            }
+        });
+    });
 };
