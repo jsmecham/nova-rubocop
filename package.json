@@ -1,6 +1,6 @@
 {
     "name": "nova-rubocop",
-    "version": "0.2.2",
+    "version": "0.3.0",
     "description": "Lint your Ruby source files with RuboCop.",
     "main": "index.js",
     "scripts": {
