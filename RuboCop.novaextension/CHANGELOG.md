@@ -1,6 +1,6 @@
 # ChangeLog
 
-## UNRELEASED
+## Version 0.2.0
 
 - Added an informative notice to the user when RuboCop could not be found.
 - Restructured the project to allow for npm dependencies to be consumed.
