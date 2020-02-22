@@ -1,4 +1,4 @@
-## UNRELEASED
+## Version 0.2.2
 
 - Updated error notification to direct users to the extension preferences when
   RuboCop could not be found.
