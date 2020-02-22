@@ -1,4 +1,4 @@
-## UNRELEASED
+## Version 0.3.1
 
 - Improved the speed of executing RuboCop by caching the environment checks
   that determine which RuboCop installation to use.
