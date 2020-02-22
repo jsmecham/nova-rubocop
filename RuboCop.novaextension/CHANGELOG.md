@@ -2,6 +2,9 @@
 
 - Improved the speed of executing RuboCop by caching the environment checks
   that determine which RuboCop installation to use.
+- Reverted change from 0.2.2 that configured RuboCop to omit cop names from
+  its output. They will be stripped manually for compatibility with older
+  versions of RuboCop.
 
 ## Version 0.3.0
 

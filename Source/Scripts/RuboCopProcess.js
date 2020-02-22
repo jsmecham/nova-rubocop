@@ -93,7 +93,6 @@ class RuboCopProcess {
         const defaultArguments = [
             "rubocop",
             "--format=json",
-            "--no-display-cop-names",
             "--stdin",
             uri
         ];

@@ -22,7 +22,9 @@ class Offense {
 
         issue.source = "RuboCop";
         issue.code = this.cop;
-        issue.message = this.message;
+
+        const cleanedMessage = this.message.replace(`${this.cop}: `, "");
+        issue.message = cleanedMessage;
 
         if (this.severity == "warning") {
             issue.severity = IssueSeverity.Warning;
