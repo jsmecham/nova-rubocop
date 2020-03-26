@@ -18,8 +18,8 @@ class RuboCopProcess {
             return Promise.resolve(this._isBundled);
         }
 
-        if (!nova.workspace.contains("Gemfile")) {
-            this._sisBundled = false;
+        if (!(nova.workspace.contains("Gemfile") || nova.workspace.contains("gems.rb"))) {
+            this._isBundled = false;
             return Promise.resolve(false);
         }
 
