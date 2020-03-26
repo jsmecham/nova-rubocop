@@ -1,3 +1,9 @@
+## Version 0.4.0
+
+- Fixed bundled RuboCop check due to a typo (thanks @evanleck).
+- Added `gems.rb` as an alternative to `Gemfile` when checking for a bundled
+  RuboCop in the project (thanks @evanleck).
+
 ## Version 0.3.1
 
 - Improved the speed of executing RuboCop by caching the environment checks
