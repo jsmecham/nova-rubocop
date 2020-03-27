@@ -83,6 +83,7 @@ class RuboCopProcess {
         const process = new Process("/usr/bin/env", {
             args: commandArguments,
             cwd: nova.workspace.path,
+            shell: true,
             stdio: "pipe"
         });
 

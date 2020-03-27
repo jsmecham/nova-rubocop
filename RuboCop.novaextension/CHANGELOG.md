@@ -1,3 +1,8 @@
+## Version 0.4.2
+
+- Fixed invocation of bundled RuboCop by executing it in the full shell
+  environment.
+
 ## Version 0.4.1
 
 - Fixed build output for 0.4.0 and resubmitted to the Nova Extension Library.
