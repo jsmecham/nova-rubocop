@@ -1,3 +1,8 @@
+## UNRELEASED
+
+- Added better error handling when running the `rubocop` command so that we
+  don't completely blow up when there are configuration warnings and errors.
+
 ## Version 0.4.2
 
 - Fixed invocation of bundled RuboCop by executing it in the full shell

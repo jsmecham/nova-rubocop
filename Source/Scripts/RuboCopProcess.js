@@ -102,11 +102,12 @@ class RuboCopProcess {
         if (!process) return;
 
         let output = "";
+        let errorOutput = "";
         process.onStdout(line => output += line);
-        process.onStderr(line => output += line);
+        process.onStderr(line => errorOutput += line);
         process.onDidExit(status => {
             // See: https://github.com/rubocop-hq/rubocop/blob/master/manual/basic_usage.md#exit-codes
-            status >= 2 ? this.handleError(output) : this.handleOutput(output);
+            status >= 2 ? this.handleError(errorOutput) : this.handleOutput(output, errorOutput);
         });
 
         process.start();
@@ -124,14 +125,22 @@ class RuboCopProcess {
         console.error(error);
     }
 
-    handleOutput(output) {
-        const parsedOutput = JSON.parse(output);
-        const offenses = parsedOutput["files"][0]["offenses"];
+    handleOutput(output, warningOutput) {
+        if (warningOutput) {
+            console.warn(warningOutput);
+        }
 
-        // TODO: Enable a "Debug" Preference
-        // console.info(JSON.stringify(offenses, null, "  "));
+        try {
+            const parsedOutput = JSON.parse(output);
+            const offenses = parsedOutput["files"][0]["offenses"];
+    
+            // TODO: Enable a "Debug" Preference
+            // console.info(JSON.stringify(offenses, null, "  "));
 
-        this.offenses = offenses.map(offense => new Offense(offense));
+            this.offenses = offenses.map(offense => new Offense(offense));
+        } catch(error) {
+            console.error(error);
+        }
 
         if (this._onCompleteCallback) {
             this._onCompleteCallback(this.offenses);
