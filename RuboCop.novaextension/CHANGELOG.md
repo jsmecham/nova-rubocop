@@ -1,4 +1,4 @@
-## UNRELEASED
+## Version 0.5.0
 
 - Added notifications of RuboCop invocation errors.
 - Added a listener to also run RuboCop before save.
