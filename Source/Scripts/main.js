@@ -13,6 +13,7 @@ exports.activate = function() {
     nova.workspace.onDidAddTextEditor((editor) => {
         linter.lintDocument(editor.document);
 
+        editor.onWillSave(editor => linter.lintDocument(editor.document));
         editor.onDidStopChanging(editor => linter.lintDocument(editor.document));
         editor.document.onDidChangeSyntax(document => linter.lintDocument(document));
 
