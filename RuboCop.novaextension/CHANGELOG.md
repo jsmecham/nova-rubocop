@@ -1,5 +1,6 @@
 ## UNRELEASED
 
+- Added notifications of RuboCop invocation errors.
 - Added a listener to also run RuboCop before save.
 - Added better error handling when running the `rubocop` command so that we
   don't completely blow up when there are configuration warnings and errors.

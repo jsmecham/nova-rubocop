@@ -123,6 +123,11 @@ class RuboCopProcess {
 
     handleError(error) {
         console.error(error);
+
+        const errorLines = error.split(/\n/);
+        const firstLine = errorLines[0];
+
+        this.notifyUserOfError(firstLine);
     }
 
     handleOutput(output, warningOutput) {
@@ -164,6 +169,18 @@ class RuboCopProcess {
             console.error(error);
         }).finally(() => {
             this.isNotified = true;
+        });
+    }
+
+    notifyUserOfError(errorMessage) {
+        const request = new NotificationRequest("rubocop-error");
+        request.title = nova.localize("RuboCop Error");
+        request.body = errorMessage;
+        request.actions = [nova.localize("OK")];
+
+        const notificationPromise = nova.notifications.add(request);
+        notificationPromise.catch((error) => {
+            console.error(error);
         });
     }
 
