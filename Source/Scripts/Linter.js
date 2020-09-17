@@ -20,7 +20,7 @@ class Linter {
         const contentRange = new Range(0, document.length);
         const content = document.getTextInRange(contentRange);
 
-        return this.lintString(content, document.uri);
+        return this.lintString(content, document.path);
     }
 
     async lintString(string, uri) {
