@@ -97,7 +97,7 @@ class RuboCopProcess {
         if (workspaceOverlap != -1) {
             relativePath = uri.substring(workspaceOverlap + nova.workspace.path.length + 1);
         } else {
-            relativePath = uri
+            relativePath = uri;
         }
         
         const defaultArguments = [
@@ -106,7 +106,6 @@ class RuboCopProcess {
             "--stdin",
             relativePath
         ];
-        
         const process = await this.process(defaultArguments);
         if (!process) return;
 
