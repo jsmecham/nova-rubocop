@@ -95,14 +95,21 @@ class RuboCopProcess {
     }
 
     async execute(content, uri, format = false) {
+        let workspaceOverlap = uri.indexOf(nova.workspace.path);
+        let relativePath = '';
+        if (workspaceOverlap != -1) {
+            relativePath = uri.substring(workspaceOverlap + nova.workspace.path.length + 1);
+        } else {
+            relativePath = uri;
+        }
+
         const defaultArguments = ["rubocop", "--format=json"];
         if (format) {
             defaultArguments.push("--auto-correct");
         } else {
             defaultArguments.push("--stdin");
         }
-
-        defaultArguments.push(uri);
+        defaultArguments.push(relativePath);
 
         const process = await this.process(defaultArguments);
         if (!process) return;
