@@ -1,7 +1,7 @@
 {
     "identifier": "Mecham.RuboCop",
     "name": "RuboCop",
-    "vendor": "Mecham",
+    "organization": "Mecham",
     "description": "Lint your Ruby source files with RuboCop.",
     "version": "0.5.1",
     "categories": ["issues"],

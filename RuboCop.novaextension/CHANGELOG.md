@@ -2,6 +2,7 @@
 
 - Fixed an issue where inclusion/exclusion paths were not being honored in the
   RuboCop configuration (thanks @jbeker).
+- Updated deprecated extension metadata for Nova 1.0.
 
 ## Version 0.5.0
 
