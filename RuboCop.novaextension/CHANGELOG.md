@@ -1,3 +1,8 @@
+## Version 0.5.1
+
+- Fixed an issue where inclusion/exclusion paths were not being honored in the
+  RuboCop configuration (thanks @jbeker).
+
 ## Version 0.5.0
 
 - Added notifications of RuboCop invocation errors.
