@@ -1,4 +1,4 @@
-## UNRELEASED
+## Version 0.5.2
 
 - Improved parsing of command output by detecting and parsing only the JSON
   output from the RuboCop command (thanks @toadle).
