@@ -6,6 +6,7 @@
 //
 
 const Offense = require("./Offense");
+const extractJSON = require("./extractJSON");
 
 class RuboCopProcess {
 
@@ -144,8 +145,8 @@ class RuboCopProcess {
         }
 
         try {
-            const jsonString = output.substring(output.indexOf("{"));
-            const parsedOutput = JSON.parse(jsonString);
+            const jsonOutput = extractJSON(output);
+            const parsedOutput = JSON.parse(jsonOutput);
             const offenses = parsedOutput["files"][0]["offenses"];
     
             // TODO: Enable a "Debug" Preference

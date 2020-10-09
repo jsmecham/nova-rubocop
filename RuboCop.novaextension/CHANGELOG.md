@@ -1,3 +1,8 @@
+## UNRELEASED
+
+- Improved parsing of command output by detecting and parsing only the JSON
+  output from the RuboCop command (thanks @toadle).
+
 ## Version 0.5.1
 
 - Fixed an issue where inclusion/exclusion paths were not being honored in the
