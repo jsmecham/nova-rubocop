@@ -144,7 +144,8 @@ class RuboCopProcess {
         }
 
         try {
-            const parsedOutput = JSON.parse(output);
+            const jsonString = output.substring(output.indexOf("{"));
+            const parsedOutput = JSON.parse(jsonString);
             const offenses = parsedOutput["files"][0]["offenses"];
     
             // TODO: Enable a "Debug" Preference
