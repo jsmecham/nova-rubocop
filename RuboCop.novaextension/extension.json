@@ -14,5 +14,14 @@
     ],
     "entitlements": {
         "process": true
-    }
+    },
+    "config-workspace": [
+		{
+			"key": "rubocop.format-on-save",
+			"title": "Format on save",
+			"description": "Whether to format documents when saved.",
+			"type": "boolean",
+			"default": true
+		}
+	]
 }

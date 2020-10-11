@@ -7,30 +7,27 @@
 
 const RuboCopProcess = require("./RuboCopProcess");
 
-class Linter {
+class Formatter {
     constructor() {
         this.issues = new IssueCollection();
         this.process = new RuboCopProcess();
     }
 
-    async lintDocument(document) {
+    async formatDocument(document) {
         if (document.syntax !== "ruby") return;
 
         const contentRange = new Range(0, document.length);
         const content = document.getTextInRange(contentRange);
 
-        return this.lintString(content, document.path);
+        return this.formatString(content, document.path);
     }
 
-    async lintString(string, uri) {
-        this.process.onComplete((offenses) => {
-            this.issues.set(
-                uri,
-                offenses.map((offense) => offense.issue)
-            );
-        });
-
-        this.process.execute(string, uri);
+    async formatString(string, uri) {
+        // this.process.onComplete(offenses => {
+        //   this.issues.set(uri, offenses.map(offense => offense.issue));
+        // });
+        //
+        this.process.execute(string, uri, true);
     }
 
     removeIssues(uri) {
@@ -38,4 +35,4 @@ class Linter {
     }
 }
 
-module.exports = Linter;
+module.exports = Formatter;
