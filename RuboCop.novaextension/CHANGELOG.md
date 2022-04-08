@@ -1,3 +1,8 @@
+## UNRELEASED
+
+- Fixed the display of offenses in files due to referencing those files by the
+  incorrect location format.
+
 ## Version 0.5.2
 
 - Improved parsing of command output by detecting and parsing only the JSON
