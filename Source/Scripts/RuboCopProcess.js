@@ -94,13 +94,13 @@ class RuboCopProcess {
     async execute(content, uri) {
         let workspaceOverlap = uri.indexOf(nova.workspace.path);
         let relativePath = '';
-        
+
         if (workspaceOverlap != -1) {
             relativePath = uri.substring(workspaceOverlap + nova.workspace.path.length + 1);
         } else {
             relativePath = uri;
         }
-        
+
         const defaultArguments = [
             "rubocop",
             "--format=json",
@@ -148,7 +148,7 @@ class RuboCopProcess {
             const jsonOutput = extractJSON(output);
             const parsedOutput = JSON.parse(jsonOutput);
             const offenses = parsedOutput["files"][0]["offenses"];
-    
+
             // TODO: Enable a "Debug" Preference
             // console.info(JSON.stringify(offenses, null, "  "));
 
