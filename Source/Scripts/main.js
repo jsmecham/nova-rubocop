@@ -2,7 +2,7 @@
 // RuboCop Extension for Nova
 // main.js
 //
-// Copyright © 2019-2020 Justin Mecham. All rights reserved.
+// Copyright © 2019-2022 Justin Mecham. All rights reserved.
 //
 
 const Linter = require("./Linter");
