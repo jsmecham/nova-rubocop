@@ -25,7 +25,8 @@ class Linter {
 
     async lintString(string, uri) {
         this.process.onComplete(offenses => {
-            this.issues.set(uri, offenses.map(offense => offense.issue));
+            const offenseIssues = offenses.map(offense => offense.issue);
+            this.issues.set(uri, offenseIssues);
         });
 
         this.process.execute(string, uri);
