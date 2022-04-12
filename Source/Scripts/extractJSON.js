@@ -5,6 +5,8 @@
 // Copyright © 2019-2022 Justin Mecham. All rights reserved.
 //
 
-export default function extractJSON(string) {
-  return string.match(/\{.*\:\{.*\:.*\}\}/);
+function extractJSON(string) {
+    return string.match(/\{.*:\{.*:.*\}\}/);
 }
+
+module.exports = extractJSON;

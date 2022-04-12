@@ -93,7 +93,7 @@ class RuboCopProcess {
 
     async execute(content, uri) {
         let workspaceOverlap = uri.indexOf(nova.workspace.path);
-        let relativePath = '';
+        let relativePath = "";
 
         if (workspaceOverlap != -1) {
             relativePath = uri.substring(workspaceOverlap + nova.workspace.path.length + 1);
