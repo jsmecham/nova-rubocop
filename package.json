@@ -21,12 +21,12 @@
     },
     "homepage": "https://github.com/jsmecham/nova-rubocop#readme",
     "devDependencies": {
-        "@rollup/plugin-commonjs": "^11.0.2",
-        "@rollup/plugin-node-resolve": "^7.1.0",
-        "eslint": "^6.8.0",
-        "eslint-plugin-nova": "^1.0.0-beta.3",
-        "onchange": "^6.1.0",
-        "rollup": "^1.32.1"
+        "@rollup/plugin-commonjs": "^21.0.3",
+        "@rollup/plugin-node-resolve": "^13.2.0",
+        "eslint": "^8.13.0",
+        "eslint-plugin-nova": "^1.7.0",
+        "onchange": "^7.1.0",
+        "rollup": "^2.70.1"
     },
     "private": true
 }

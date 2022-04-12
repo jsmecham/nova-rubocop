@@ -1,11 +1,11 @@
 const commonjs = require("@rollup/plugin-commonjs");
-const resolve = require("@rollup/plugin-node-resolve");
+const { nodeResolve } = require("@rollup/plugin-node-resolve");
 
 module.exports = {
     input: "Source/Scripts/main.js",
     plugins: [
         commonjs(),
-        resolve()
+        nodeResolve()
     ],
     output: {
         file: "RuboCop.novaextension/Scripts/main.dist.js",
