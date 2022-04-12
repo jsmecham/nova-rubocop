@@ -1,7 +1,6 @@
 # RuboCop Extension for Nova
 
-Provides integration with RuboCop to lint (and optionally, fix) your Ruby source
-files.
+Provides integration with RuboCop to lint your Ruby source files.
 
 ## Features
 
