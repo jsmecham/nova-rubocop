@@ -2,6 +2,7 @@
 
 - Fixed the display of offenses in files due to referencing those files by the
   incorrect location format.
+- Updated all development dependencies to their latest versions.
 
 ## Version 0.5.2
 
