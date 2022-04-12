@@ -1,4 +1,4 @@
-## UNRELEASED
+## Version 0.6.0
 
 - Fixed the display of offenses in files due to referencing those files by the
   incorrect location format.

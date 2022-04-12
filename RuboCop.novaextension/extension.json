@@ -3,7 +3,7 @@
     "name": "RuboCop",
     "organization": "Mecham",
     "description": "Lint your Ruby source files with RuboCop.",
-    "version": "0.5.2",
+    "version": "0.6.0",
     "categories": ["issues"],
     "repository": "https://github.com/jsmecham/nova-rubocop",
     "bugs": "https://github.com/jsmecham/nova-rubocop/issues",
